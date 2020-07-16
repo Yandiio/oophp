@@ -1,15 +1,18 @@
 <?php
+    interface infoProduk{
+        public function printInfoProduk();
+        public function __construct();
+        
+    }
+
     abstract class Produk{
-        protected $nama,
+        protected  $nama,
                $pengembang,
                $publisher,
                $harga;
 
         protected $diskon = 0;
         
-
-        abstract function printInfoProduk();
-
         public function __construct($nama = "nama", $harga = "harga", $pengembang = "pengembang", $publisher = "publisher") 
         {
             $this->nama = $nama;
@@ -59,16 +62,11 @@
         }
 
 
-        //Revisi : dibikin method info dalam class abstract, biar lebih mudah
-        public function getInfo() 
-        {
-           $str = "{$this->nama} | {$this->getLabel()} (Rp. {$this->harga}";
-           return $str;
-        }
+        abstract public function getInfo();
 
     }
 
-    class Komik extends Produk {
+    class Komik extends Produk implements infoProduk {
 
         protected $jmlHalaman;
 
@@ -79,6 +77,12 @@
 
         public function setDiskon($diskon) {
             return $this->diskon = $diskon;
+        }
+
+        public function getInfo() 
+        {
+           $str = "{$this->nama} | {$this->getLabel()} (Rp. {$this->harga}";
+           return $str;
         }
 
         public function printInfoProduk() {
@@ -100,6 +104,12 @@
             $string = "{$this->getInfo()} | ~ {$this->jmlWaktuMain} Hours";
             return $string;
         }
+
+        public function getInfo() 
+        {
+           $str = "{$this->nama} | {$this->getLabel()} (Rp. {$this->harga}";
+           return $str;
+        }
     }
 
     class Musik extends Produk {
@@ -116,10 +126,16 @@
             $string = "{$this->getInfo()} | - {$this->jmlLagu} Songs";
             return $string;
         }
+
+        public function getInfo() 
+        {
+           $str = "{$this->nama} | {$this->getLabel()} (Rp. {$this->harga}";
+           return $str;
+        }
     }
 
     
-    class InfoProduk {
+    class printInfoProduk {
         public $produkArray = [];
 
         public function tambahInfoProduk(Produk $produk) {
@@ -142,7 +158,7 @@
     $produk2 = new Games("The Witcher 3 Wild Hunt", 690000, "CD Projekt", "Andrzej Sapkowsk", 25);
     $produk3 = new Musik("TWICE : Seize Of The Light", 350000, "JYP Entertaiment", "Warner Bros Music", 12);
 
-    $cetakInfoProduk = new InfoProduk();
+    $cetakInfoProduk = new printInfoProduk();
     $cetakInfoProduk->tambahInfoProduk($produk1);
     $cetakInfoProduk->tambahInfoProduk($produk2);
     $cetakInfoProduk->tambahInfoProduk($produk3);
